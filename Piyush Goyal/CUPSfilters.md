@@ -193,23 +193,54 @@ ___
     <br>
     
     * #### page-left, page-right, page-bottom, page-top
-        I could not find these options in imagetopdf.c 
+        I could not find these options in imagetopdf.c, however these were mentioned in README.txt 
 
     <br>
     
     * #### OutputOrder
+        The default printing takes place from first to last page. However, you can reverse this order by simplying adding this command line option as illustrated below;
+         <br>
+
+        ```./imagetopdf job user title 1 OutputOrder=Reverse flower.jpg```
+
+            
     
     <br>
     
     * #### Collate
+        The significance of the word collate is to gather, organize and assemble in a particular request of arrangement. In printing wording, it is to collect numerous sheets or parts together to make a set. Ordering is most regularly utilized in the readiness of booklets, lists and manuals.
+        <br>
+
+        |Collated|Uncollated|
+        |---|---|
+        | ![collated](https://dynamix-cdn.s3.amazonaws.com/formaxprintingcom/collated_docume_1306245341.jpg) | ![uncollated](https://dynamix-cdn.s3.amazonaws.com/formaxprintingcom/uncollated_docu_1306245952.jpg) |
+
+        <br>
+        If you have a document that includes multiple pages and you wish to print multiple copies of same document, you can set collate option to True and get your pages printed in organised into sets.
+
+            ./imagetopdf job user title 100 Collate=True flower.jpg 
     
     <br>
     
-    * #### sides
+    * #### Duplex / Sides
+        Duplex printing is a feature of some computer printers and multi-function printers (MFPs) that allows the printing of a sheet of paper on both sides automatically.
+
+        We can set Duplex printing by supplying any one of the options "Duplex=on", "Duplex=True", "Duplex=yes", "sides=two-sided-long-edge" or "sides=two-sided-short-edge".
+
+        <br>
+
+            ./imagetopdf job user title 1 Duplex=True flower.jpg 
     
     <br>
-    
+
     * #### cupsEvenDuplex
+        The purpose of cupsEvenDuplex is to work around known printer firmware bugs where the printer would crash (hard) if we sent it a duplex job with an odd number of pages.
+
+        We can set cupsEvenDuplex printing by supplying any one of the options "cupsEvenDuplex=on", "cupsEvenDuplex=True" or "cupsEvenDuplex=yes".
+
+        <br>
+
+            ./imagetopdf job user title 1 '-o Duplex=True -o cupsEvenDuplex=True' flower.jpg 
     
     <br>
     
@@ -217,7 +248,7 @@ ___
         This common line option decides the position of the image on the paper. The default position is **center**. Some of the positional arguments are given in the table, while others are listed below it. 
         | center | top     | bottom          | left     | right          |
         | --------| -------- | -------------- |-------- | ----------- |
-        | ```./imagetopdf job user title 1 '-o fitplot=off position=center' flower.jpg >> center.pdf``` | ```./imagetopdf job user title 1 '-o fitplot=off position=top' flower.jpg >> top.pdf``` |```./imagetopdf job user title 1 '-o fitplot=off position=bottom' flower.jpg >> bottom.pdf ``` | ```./imagetopdf job user title 1 '-o fitplot=off position=left' flower.jpg >> left.pdf```|```./imagetopdf job user title 1 '-o fitplot=off position=right' flower.jpg >> right.pdf``` | 
+        | ```./imagetopdf job user title 1 '-o fitplot=off -o position=center' flower.jpg >> center.pdf``` | ```./imagetopdf job user title 1 '-o fitplot=off -o position=top' flower.jpg >> top.pdf``` |```./imagetopdf job user title 1 '-o fitplot=off -o position=bottom' flower.jpg >> bottom.pdf ``` | ```./imagetopdf job user title 1 '-o fitplot=off -o position=left' flower.jpg >> left.pdf```|```./imagetopdf job user title 1 '-o fitplot=off -o position=right' flower.jpg >> right.pdf``` | 
         | ![center-1](https://user-images.githubusercontent.com/43112419/85134309-e9a59d80-b259-11ea-97da-dba839c71f6b.jpg)|![top-1](https://user-images.githubusercontent.com/43112419/85134362-faeeaa00-b259-11ea-9195-f5af2fbc8ffe.jpg) |![bottom-1](https://user-images.githubusercontent.com/43112419/85134315-ed392480-b259-11ea-8195-70e9236ce711.jpg) | ![left-1](https://user-images.githubusercontent.com/43112419/85134332-f1fdd880-b259-11ea-898c-b090c681415d.jpg)| ![right-1](https://user-images.githubusercontent.com/43112419/85134348-f6c28c80-b259-11ea-9bbd-caabc8805fa3.jpg) |
 
         
@@ -244,6 +275,14 @@ ___
     <br>
     
     * #### scaling
+        This numerical option can be used to control the zoom level of the image. The zoom and scaling value is related by the formula;
+            
+        Scaling = Zoom * 0.01
+        
+        Note that the deafult zoom is 1.0 and hence scaling is 100. You can increase or decrease the zoom by passing scaling argument value of above hundred and below hundred respectively.
+
+            ./imagetopdf job user title 1 scaling=500 flower.jpg >> zoomed.pdf
+
     
     <br>
 
@@ -292,15 +331,13 @@ ___
     The pdftopdf filter depends on libqpdf to read and write PDF files.
 
     It replaces and imitates the pstops filter in the PDF-based workflow.
-    A similar filter (which can serve as behavior reference)
-    is called "cgpdftopdf" in OS X (not open source).
+    A similar filter (which can serve as behavior reference) is called "cgpdftopdf" in OS X (not open source).
 
 3. ### License
 
     pdftopdf is released under the MIT license.
 
-    The required libqpdf is available under version 2.0 of the Apache License,
-    e.g. here: https://github.com/qpdf/qpdf
+    The required libqpdf is available under version 2.0 of the Apache License, e.g. here: https://github.com/qpdf/qpdf
 
 3. ### COMMAND LINE
 
